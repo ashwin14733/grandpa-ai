@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grandpa AI</title>
+    <link rel="stylesheet" href="index1.css">
+</head>
+<body>
+    <div class="main">
+        <div class="container">
+            
+            <div class="some">
+            
+                <nav>
+                    <div class="header">
+                        <h1 class="ani"><a class="a" href="index.html">Grandpa Ai</a></h1>
+                    </div>
+                </nav>
+            <div class="herosection">
+                <div class="leftsection">
+                    <button class="full">Fully Dynamic</button>
+                    <p id="element" class="anime"></p>
+                    <div id="searchbox" >
+                        <form id="formtag">
+                            <input type="search" placeholder="Ask Grandpa anything... he's seen it all" class="input" id="inputtag" >
+                            <!-- <img src="./ic_round-search (1).png" alt="" id="search-image" > -->
+                            <button type="submit" class="search" id="searchbtn">Search</button>
+                         </form>
+                    </div>
+                    
+                </div>
+                <div class="rightsection">
+                    <img src="man-Bb55YuAS.png" alt="" >
+                </div>
+            </div>
+            <div id="results"></div>
+        </div>
+        </div>
+    </div>
+    
+   
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+
+    <!-- Setup and start animation! -->
+    <script>
+        var typed = new Typed('#element', {
+        strings: ["Meet Grandpa AI - he's not just artificial intelligence"," He's experienced intelligence with decades of digital wisdom.","Grandpa's listening... what's on your mind?", "Grandpa's got time for your questions","Ask anything. Grandpa's got stories and solutions."],
+        typeSpeed: 20,
+        loop:false
+        });
+    </script>
+
+    <script>
+        let inputtag = document.getElementById("inputtag");
+        let searchbtn = document.getElementById("searchbtn");
+        let formtag = document.getElementById("formtag");
+        let results = document.getElementById("results");
+        formtag.addEventListener("submit",async(e)=>{
+            e.preventDefault();
+
+            let API_KEY = "AIzaSyAgJlX-eAUSDaszPGrG4KmWV9q-X7BMe0Y";
+            let APIURL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`;
+
+            let chathistory = [];
+            let validation = inputtag.value.toLowerCase().trim();
+
+            chathistory.push({
+                role : "user",
+                parts : [{text : validation}]
+            })
+
+            let signal = new AbortController()
+            // window.scrollBy({
+            //         top:2000,
+            //         behavior : "smooth"
+            //     })
+                
+
+            await fetch(APIURL,{
+                method : "POST",
+                headers : {"Content-Type" : "application/json"},
+                body : JSON.stringify({contents:chathistory}),
+                signal : signal.signal
+
+            }).then((res)=>res.json()).then((data)=>{
+                console.log(data.candidates[0].content.parts[0].text);
+                
+                // let h2tagcall = document.createElement("h2");
+                // h2tagcall.innerHTML = data.candidates[0].content.parts[0].text;
+                // results.appendChild(h2tagcall) 
+
+                results.innerHTML += "You : "+inputtag.value + "<br>" + "<br>";
+                results.innerHTML += "Grandpa : " + data.candidates[0].content.parts[0].text + "<br>" + "<br>";
+                // results.push(newdiv)
+
+                // results.scrollIntoView({behavior:"smooth", block : "center"})
+                window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' })
+                clearfunction();
+            })
+
+            function clearfunction(params) {
+                inputtag.value = ''
+            }
+        })
+    </script>
+
+    
+
+    
+</body>
+</html>
+
+<!-- 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Chatgpt clone</h1>
+    <form id="formtag">
+        <input type="text" id="promptdata">
+        <button type="submit" id="sendbutton">Send</button>
+    </form>
+
+    <div id="datadisplay">
+
+    </div>
+
+    <script>
+        let formtag = document.getElementById("formtag");
+        let promptdata = document.getElementById("promptdata");
+        let sendbutton = document.getElementById("sendbutton");
+        let datadisplay= document.getElementById("datadisplay")
+
+        formtag.addEventListener("submit",async (e)=>{
+            e.preventDefault();
+            const API_KEY = "AIzaSyDenMy9TG21D1IqxFR-HVoKphqz-BXuvF4";
+            const APIURL =  `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`;
+
+            let chatHistroy = [];
+            const validationdata = promptdata.value.trim();
+
+
+            chatHistroy.push({
+                role:"user",
+                parts:[{text:validationdata}]
+            })
+
+            const signal = new AbortController()
+
+           await fetch(APIURL,{
+            method:"POST",
+            headers:{"Content-Type":"application/json"},
+            body:JSON.stringify({contents:chatHistroy}),
+            signal: signal.signal
+
+            }).then((res)=>res.json()).then((data)=>{
+              console.log(data);
+              console.log(data.candidates[0].content.parts[0].text);
+              let h3tagcreate = document.createElement("h3");
+              h3tagcreate.innerHTML = data.candidates[0].content.parts[0].text
+              datadisplay.appendChild(h3tagcreate)
+              
+                
+            })
+
+
+        })
+    </script>
+</body>
+</html> -->
