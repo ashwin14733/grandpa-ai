@@ -61,6 +61,7 @@ h1{
         margin-right: auto;
         display: flex;
         align-items: center;
+        /* flex-wrap: wrap; */
 }
 .leftsection{
     display: flex;
@@ -177,4 +178,85 @@ input::placeholder{
     font-size: 20px;
     width: 100%;
     margin: 100px 0px;
+}
+
+
+@media screen and (max-width:500px) {
+    .container{
+        width: 100%;
+        
+    }
+    .header{
+        padding: 20px 10px;
+    }
+    .ani{
+        font-size: 30px;
+       
+    }
+    .herosection{
+        display: flex;
+        align-items: start;
+        flex-wrap: wrap;
+    }
+    .anime{
+        width: 100%;
+        max-width: 300px;
+        font-size: 25px;
+        height: 80px;
+    }
+    #searchbox{
+        width: 100%;
+    }
+    .search{
+        font-size: 18px;
+        padding: 10px 20px;
+    }
+    .input{
+        padding: 12px 65px 12px 15px;
+        font-size: 13px;
+    }
+    img{
+        top: 22px;
+        left: 30px;
+        width: 100%;
+    }
+    #results{
+        /* letter-spacing: 0.2px; */
+        line-height: 25px;
+    }
+}
+
+@media (min-width:700px) and (max-width:880px){
+    .anime{
+        font-size:35px;
+        width: 100%;
+        max-width: 700px;
+    }
+    .header{
+        padding: 20px 20px;
+    }
+    .ani{
+        font-size: 40px;
+    }
+    .input{
+        font-size: 22px;
+        padding: 15px 250px 15px 25px;
+    }
+    .search{
+        font-size: 25px;
+        padding: 14px 28px;
+    }
+    img{
+        top: -30px;
+        left: 109.2px;
+    }
+    .herosection{
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+
+    }
+    #results{
+        font-size: 25px;
+    }
 }
